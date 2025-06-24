@@ -6,7 +6,7 @@ const app = express ()
 const PORT = process.env.PORT || 8000
 
 // db connection 
-import { dbConnect } from './config/db.js';
+import { dbConnect } from './src/config/db.js';
 
 ;
 
@@ -19,6 +19,11 @@ app.use(morgan("dev"));
 // parse your json files
 
 app.use(express.json());
+
+
+// API endpoints
+import router from './src/routes/authRoute.js';
+app.use("/api/v1/auth", router)
 
 // server status
 app.get("/", (req ,res)=> {
