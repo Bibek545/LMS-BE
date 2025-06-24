@@ -1,7 +1,24 @@
 import express from 'express';
+
+
 const app = express ()
 
 const PORT = process.env.PORT || 8000
+
+// db connection 
+import { dbConnect } from './config/db.js';
+
+;
+
+// middlewares
+import cors from "cors"
+import morgan from 'morgan';
+app.use(cors());
+app.use(morgan("dev"));
+
+// parse your json files
+
+app.use(express.json());
 
 // server status
 app.get("/", (req ,res)=> {
@@ -10,7 +27,9 @@ app.get("/", (req ,res)=> {
   });
 });
 
-app.listen(PORT, error => {
+dbConnect()
+.then(()=> {
+  app.listen(PORT, error => {
   error 
   ? console.log(error)
   : console.log("Server is ruuning at http://localhost:" + PORT);
@@ -18,3 +37,8 @@ app.listen(PORT, error => {
 
 }
 );
+})
+.catch((error)=> console.log(error));
+
+
+
