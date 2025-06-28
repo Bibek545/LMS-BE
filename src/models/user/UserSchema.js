@@ -2,6 +2,10 @@
 import mongoose from 'mongoose';
 
 const UserSchema = new mongoose.Schema({
+    status: {
+        type: String,
+       default: "inactive",
+    },
     fName: {
         type: String,
         required: true

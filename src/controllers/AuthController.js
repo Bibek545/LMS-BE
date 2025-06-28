@@ -13,12 +13,27 @@ const insertNewUserController = async (req, res, next) => {
     // insert the user into the database
 
     const user = await createNewUser(req.body);
-    //create an unique user activation link anfd send it to their email
+
+
+    if(user?._id) {
+
+
+          //create an unique user activation link anfd send it to their email
+
+           res.json({
+      status: "success",
+      message: "todo",
+    });
+ 
+      
+    }
+  
+
 
     // have to do all of them before the response.json starts
     res.json({
-      status: "success",
-      message: "todo",
+      status: "error",
+      message: "unable to create an account, try again later",
     });
   } catch (error) {
     next(error);
