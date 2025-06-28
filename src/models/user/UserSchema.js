@@ -1,41 +1,40 @@
-import { required, types } from 'joi';
+
 import mongoose from 'mongoose';
-import Mongoose from 'mongoose';
 
 const UserSchema = new mongoose.Schema({
     fName: {
-        types: String,
+        type: String,
         required: true
     },
       lName: {
-        types: String,
+        type: String,
         required: true
     },
       role: {
-        types: String,
+        type: String,
         required: true,
         default: 'user'
     },
       email: {
-        types: String,
+        type: String,
         required: true,
         unique: true,
         index: 1
     },
       phone: {
-        types: String,
+        type: String,
        
     },
-      passsword: {
-        types: String,
+      password: {
+        type: String,
         required: true
     },
       refreshJWT: {
-        types: String,
+        type: String,
     },
 }, {
     timestamps: true
 
 });
 
-export default mongoose.model;("User", UserSchema); //USERS
+export default mongoose.model("User", UserSchema); //USERS
