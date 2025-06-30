@@ -36,6 +36,10 @@ const insertNewUserController = async (req, res, next) => {
       message: "unable to create an account, try again later",
     });
   } catch (error) {
+    if(error.message.includes("E11000 duplicate key error collection")) {
+        error.message = "The email already exits, try different email";
+        error.statusCode = 200;
+    }
     next(error);
   }
 };

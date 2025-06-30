@@ -23,6 +23,7 @@ app.use(express.json());
 
 // API endpoints
 import router from './src/routes/authRoute.js';
+import { errorHandle } from './src/middleware/errorHandler.js';
 app.use("/api/v1/auth", router)
 
 // server status
@@ -31,6 +32,8 @@ app.get("/", (req ,res)=> {
     message: "Server is live and working",
   });
 });
+
+app.use(errorHandle);
 
 dbConnect()
 .then(()=> {

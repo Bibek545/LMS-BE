@@ -1,0 +1,9 @@
+export const errorHandle = (error, req, res, next) => {
+  const statusCode = error.statusCode || 500
+    
+
+  res.status(statusCode).json ({
+    status: 'error',
+    message:error.message
+  })
+};
