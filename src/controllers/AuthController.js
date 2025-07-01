@@ -1,7 +1,8 @@
 import hashPassword from "../utils/bcrypt.js";
 import { createNewUser } from "../models/user/UserModel.js";
 import { responseClient } from "../middleware/responseClient.js";
-
+import { createNewSession } from "../models/session/SessionModel.js";
+import {v4 as uuidv4} from "uuid";
 const insertNewUserController = async (req, res, next) => {
   try {
     //to do sign up process
@@ -17,8 +18,19 @@ const insertNewUserController = async (req, res, next) => {
 
 
     if(user?._id) {
+ 
+    const session = await createNewSession({
+        token: uuidv4(),
+        association: user.email,
+    });
 
+    if(session?._id) {
+        const url = "http//:localhost:5371?id="+session._id+"&t="+session.token
 
+        //send this url to their email
+
+        console.log(url);
+    }
           //create an unique user activation link anfd send it to their email
 
     //        res.json({
