@@ -24,16 +24,17 @@ app.use(express.json());
 // API endpoints
 import router from './src/routes/authRoute.js';
 import { errorHandle } from './src/middleware/errorHandler.js';
+import { responseClient } from './src/middleware/responseClient.js';
 app.use("/api/v1/auth", router)
 
 // server status
 app.get("/", (req ,res)=> {
-  res.json({
-    message: "Server is live and working",
-  });
+  const message = "Server is live";
+  responseClient({req,res,message})
 });
 
 app.use(errorHandle);
+app.use(responseClient);
 
 dbConnect()
 .then(()=> {

@@ -16,7 +16,7 @@ Content-Type: application/json
    
   "fName": "bibek",
   "lName": "hamal",
-  "email": "b@b.com",
+  "email": "a@b.com",
   "password": "test",
   "phone": "123456789"
 }
