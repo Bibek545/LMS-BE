@@ -7,4 +7,5 @@ const router = express.Router()
 
 router.post("/register", insertNewUserController);
 
+
 export default router;

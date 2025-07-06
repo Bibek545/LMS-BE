@@ -1,4 +1,4 @@
-import { userActivationEmailTemplate } from "./emailTemplates";
+import { userActivationEmailTemplate } from "./emailTemplates.js";
 import { emailTransporter } from "./transport.js";
 
 export const userActivationEmail = async (obj) => {

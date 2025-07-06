@@ -3,6 +3,7 @@ import { createNewUser } from "../models/user/UserModel.js";
 import { responseClient } from "../middleware/responseClient.js";
 import { createNewSession } from "../models/session/SessionModel.js";
 import {v4 as uuidv4} from "uuid";
+import { userActivationEmail } from "../services/emailService.js";
 const insertNewUserController = async (req, res, next) => {
   try {
     //to do sign up process
@@ -10,7 +11,7 @@ const insertNewUserController = async (req, res, next) => {
 
     // encrypt the password
     const { password } = req.body;
-    req.body.password = hashPassword(password);
+    req.body.password = await hashPassword(password);
 
     // insert the user into the database
 
@@ -25,9 +26,17 @@ const insertNewUserController = async (req, res, next) => {
     });
 
     if(session?._id) {
-        const url = "http//:localhost:5371?id="+session._id+"&t="+session.token
+        const url = `${process.env.ROOT_URL}/activate-user?sessionId=${session._id}&t=${session.token}`;
+    
 
         //send this url to their email
+        console.log(url);
+        const emailId = await userActivationEmail({
+            email: user.email,
+            url,
+            name: user.fName,
+        })
+        
 
         console.log(url);
     }
@@ -46,6 +55,7 @@ const insertNewUserController = async (req, res, next) => {
     // have to do all of them before the response.json starts
     throw new Error ("Unable to create an account, try again later.");
   } catch (error) {
+    console.log("Error in register --->",error);
     if(error.message.includes("E11000 duplicate key error collection")) {
         error.message = "The email already exits, try different email";
         error.statusCode = 400;
