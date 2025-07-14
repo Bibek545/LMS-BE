@@ -16,7 +16,19 @@ Content-Type: application/json
    
   "fName": "bibek",
   "lName": "hamal",
-  "email": "abcd7@b.com",
+  "email": "abcd7@bec.com",
   "password": "test",
   "phone": "123456789"
+}
+
+###ACTIVATE NEW USER
+
+POST {{rootUrl}}api/v1/auth/activate-user
+Content-Type: application/json
+
+{
+
+  "sessionId": "687451a2b12553c140dcf7f2",
+  "t": "2db2e155-4be9-4866-a823-75f2fee4e856"
+
 }

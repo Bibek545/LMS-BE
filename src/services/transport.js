@@ -10,5 +10,16 @@ export const emailTransporter = () => {
             pass: process.env.SMTP_PASS,
         }
     });
+    
+    // we dont need this
+
+
+    transporter.verify((err, success) => {
+  if (err) {
+    console.error("❌ SMTP login failed:", err.message);
+  } else {
+    console.log("✅ SMTP connection verified");
+  }
+});
     return transporter;
 }
