@@ -16,6 +16,7 @@ import {
 } from "../services/emailService.js";
 import { Error } from "mongoose";
 import SessionSchema from "../models/session/SessionSchema.js";
+import { getJwts } from "../utils/jwt.js";
 
 const insertNewUserController = async (req, res, next) => {
   try {
@@ -126,7 +127,7 @@ export const loginUser = async (req, res, next) => {
         console.log("user authenticated successfully");
 
         //generate the tjwts
-        const jwts = {};
+        const jwts = await getJwts(email);
 
         //response the jwts
         return responseClient({
