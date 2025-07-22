@@ -12,7 +12,7 @@ const sessionSchema = new mongoose.Schema ({
         type: Date,
         required: true,
         default: new Date(Date.now() + 86400000), //1000*60*60*60 1
-          expires: 0,
+        expires: 0,
     },
 },
 {
