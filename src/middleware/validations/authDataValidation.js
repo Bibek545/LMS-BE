@@ -1,4 +1,5 @@
-import { EMAILREQ, FNAMEREQ, LNAMEREQ, PASSWORD, PHONE, SESSIONREQ, TOKENREQ } from "./joiConst.js";
+
+import { EMAILREQ, FNAMEREQ, LNAMEREQ, PASSWORDREQ, PHONE, SESSIONREQ, TOKENREQ } from "./joiConst.js";
 import { validateData } from "./joiValidation.js";
 
 export const newUserDataValidation = (req,res,next) => {
@@ -12,7 +13,7 @@ export const newUserDataValidation = (req,res,next) => {
         fName: FNAMEREQ,
         lName: LNAMEREQ,
         email: EMAILREQ,
-        password: PASSWORD,
+        password: PASSWORDREQ,
         phone: PHONE,
 
     };
@@ -28,4 +29,12 @@ export const userActivationDataValidation = (req, res, next) => {
     });
 
 validateData({req, res, next, obj})
+};
+
+export const loginDataValidation = (req, res, next) => {
+    const obj = {
+        email: EMAILREQ,
+        password: PASSWORDREQ,
+    }
+    validateData({req, res, next, obj});
 }
