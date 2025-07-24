@@ -17,7 +17,17 @@ const obj = {
 const newSession = await createNewSession(obj)
 return newSession?._id? token : null;
 };
+
 //decode accesJwt
+export const verifyAccessJWT= (token) => {
+   try {
+      const decoded = jwt.verify(token, process.env.ACCESSJWT_SECRET);
+      return decoded;
+   } catch (error){
+    return error.message
+
+   }
+ }
 
 //generate refreshJwt
 

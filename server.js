@@ -25,8 +25,9 @@ app.use(express.json());
 import router from './src/routes/authRoute.js';
 import { errorHandle } from './src/middleware/errorHandler.js';
 import { responseClient } from './src/middleware/responseClient.js';
+import userRoute from './src/routes/userRoute.js'
 app.use("/api/v1/auth", router)
-
+app.use("/api/v1/users", userRoute )
 // server status
 app.get("/", (req ,res)=> {
   const message = "Server is live";

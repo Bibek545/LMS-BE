@@ -28,8 +28,8 @@ Content-Type: application/json
 
 {
 
-  "sessionId": "687451a2b12553c140dcf7f2",
-  "t": "2db2e155-4be9-4866-a823-75f2fee4e856"
+  "sessionId": "6881bdda889aa42355308a11",
+  "t": "d255a3e3-4d28-4724-acd9-a4656db53018"
 
 }
 
@@ -43,3 +43,9 @@ Content-Type: application/json
    "password":"test"
 
 }
+
+###get user profile
+
+GET {{rootUrl}}api/v1/users/profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY2Q3QGJlYy5jb20iLCJpYXQiOjE3NTMzMzMyNjgsImV4cCI6MTc1MzMzNDE2OH0.GCtoZqKDs59Gi6uu5AthSiGmgJWSFxhZzC73mOBG1x01
+
