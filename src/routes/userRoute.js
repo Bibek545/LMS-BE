@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.get("/profile", userAuthMiddleware, async (req, res) => {
   const user = req.userInfo;
-  user.passsword = undefined
+  user.password = undefined
   user.__v = undefined
   user.refreshJWT = undefined
 
