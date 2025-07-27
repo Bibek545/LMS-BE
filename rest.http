@@ -1,4 +1,4 @@
-@rootUrl = http://localhost:8000/
+@rootUrl = http://localhost:8000
 
 #API LIST
 
@@ -9,7 +9,7 @@ GET {{rootUrl}}
 ##Auth API
 
 ###POST NEW user
-POST {{rootUrl}}api/v1/auth/register
+POST {{rootUrl}}/api/v1/auth/register
 Content-Type: application/json
 
 {
@@ -23,7 +23,7 @@ Content-Type: application/json
 
 ###ACTIVATE NEW USER
 
-POST {{rootUrl}}api/v1/auth/activate-user
+POST {{rootUrl}}/api/v1/auth/activate-user
 Content-Type: application/json
 
 {
@@ -35,7 +35,7 @@ Content-Type: application/json
 
 
 ###login user 
-POST {{rootUrl}}api/v1/auth/login
+POST {{rootUrl}}/api/v1/auth/login
 Content-Type: application/json
 
 {
@@ -46,7 +46,9 @@ Content-Type: application/json
 
 ###get user profile
 
-GET {{rootUrl}}api/v1/users/profile
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY2Q3QGJlYy5jb20iLCJpYXQiOjE3NTM0NDg4NTcsImV4cCI6MTc1MzQ0OTc1N30.abiV7hrxewg1SZcdvkpw0DIBXIQ8LpOYaaTKYdcuWh4
+GET {{rootUrl}}/api/v1/users/profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY2Q3QGJlYy5jb20iLCJpYXQiOjE3NTM2MTM2OTYsImV4cCI6MTc1MzYxNDU5Nn0.RNgaclPWWl_DIPxspyphYLOD1p_4CoPUE8cYK7brOz4
 
-  
+###renew acessJWT
+GET {{rootUrl}}/api/v1/auth/renew-jwt
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY2Q3QGJlYy5jb20iLCJpYXQiOjE3NTM2MjA0MjQsImV4cCI6MTc1NjIxMjQyNH0.CjOs4kW6_P1RDZBDKY1NP8A7O02X9Ei7Mho1gEs_Y0I
