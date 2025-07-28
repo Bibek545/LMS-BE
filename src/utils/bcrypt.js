@@ -6,3 +6,7 @@ const hashPassword = (plainPassword) => {
 }
 
 export default hashPassword;
+
+export const comparePassword = (plainPassword, hashPassword) => {
+    return bcrypt.compareSync(plainPassword, hashPassword);
+}

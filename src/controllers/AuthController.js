@@ -1,14 +1,23 @@
-import hashPassword from "../utils/bcrypt.js";
-import { createNewUser, updateUser } from "../models/user/UserModel.js";
+import hashPassword, { comparePassword } from "../utils/bcrypt.js";
+import {
+  createNewUser,
+  getUserByEmail,
+  updateUser,
+} from "../models/user/UserModel.js";
 import { responseClient } from "../middleware/responseClient.js";
 import {
   createNewSession,
+  deleteMultipleSession,
   deleteSession,
 } from "../models/session/SessionModel.js";
 import { v4 as uuidv4 } from "uuid";
-import { userActivationEmail, userAccountVerfiedNotification } from "../services/emailService.js";
+import {
+  userActivationEmail,
+  userAccountVerfiedNotification,
+} from "../services/emailService.js";
 import { Error } from "mongoose";
 import SessionSchema from "../models/session/SessionSchema.js";
+import { getJwts } from "../utils/jwt.js";
 
 const insertNewUserController = async (req, res, next) => {
   try {
@@ -75,7 +84,7 @@ export const activateUser = async (req, res, next) => {
       _id: sessionId,
       token: t,
     });
-    console.log(session)
+    console.log(session);
 
     if (session?._id) {
       //updated user to active
@@ -87,7 +96,7 @@ export const activateUser = async (req, res, next) => {
       if (user?._id) {
         //send email notification
 
-        userAccountVerfiedNotification({email: user.email, name: user.fName});
+        userAccountVerfiedNotification({ email: user.email, name: user.fName });
 
         const message = "Your account has been verified, you can log in";
         return responseClient({ req, res, message });
@@ -98,5 +107,65 @@ export const activateUser = async (req, res, next) => {
     return responseClient({ req, res, message });
   } catch (error) {
     next(error);
+  }
+};
+
+export const loginUser = async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
+
+    //get user by email
+    console.log(email, password);
+
+    const user = await getUserByEmail(email);
+    if (user?._id) {
+      console.log(user);
+
+      // compare the password
+      const isPasswordMatch = comparePassword(password, user.password);
+
+      if (isPasswordMatch) {
+        console.log("user authenticated successfully");
+
+        //generate the tjwts
+        const jwts = await getJwts(email);
+
+        //response the jwts
+        return responseClient({
+          req,
+          res,
+          message: "LoginSuccessfull",
+          payload: jwts,
+        });
+      }
+    }
+    const message = "Invalid login details";
+    const statusCode = 401;
+    responseClient({ req, res, message, statusCode });
+  } catch (error) {
+    next(error);
+  }
+};
+
+
+export const logoutUser = async (req, res ,next) => {
+
+  try {
+    //get the token
+
+
+    const {email} = req.userInfo
+
+    //update the refreshJwt to empty ""
+    
+    await updateUser({email}, {refreshJWT: " "})
+
+    //remove the accessJWT from the session table
+    await deleteMultipleSession({ association: email })
+    responseClient({req, res , message: "you are logged out"})
+
+  } catch (error) {
+    next(error)
+
   }
 }

@@ -1,10 +1,12 @@
-export const responseClient = ({req, res, message, statusCode = 200}) => {
+export const responseClient = ({req, res, message, statusCode = 200, payload}) => {
 
     //success response
     req.success = () => {
         return res.status(statusCode).json ({
             status: "success",
             message,
+            payload,
+
         });
     };
 
@@ -14,6 +16,7 @@ export const responseClient = ({req, res, message, statusCode = 200}) => {
         return res.status(statusCode).json({
             status: 'error',
             message,
+            payload,
         });
     };
 
