@@ -1,8 +1,8 @@
 import express from 'express'
 // import { createNewUser } from '../models/user/UserModel.jsx';
-import insertNewUserController, { activateUser, loginUser } from '../controllers/AuthController.js';
+import insertNewUserController, { activateUser, loginUser, logoutUser } from '../controllers/AuthController.js';
 import { newUserDataValidation, userActivationDataValidation, loginDataValidation } from '../middleware/validations/authDataValidation.js';
-import { renewAccessJWTMiddleware } from '../middleware/authMiddleware.js';
+import { renewAccessJWTMiddleware, userAuthMiddleware } from '../middleware/authMiddleware.js';
 
 const router = express.Router()
 
@@ -18,6 +18,9 @@ router.post("/login", loginDataValidation, loginUser)
 
 //renew-jwt
 router.get("/renew-jwt", renewAccessJWTMiddleware)
+
+//loging out the user 
+router.get("/logout", userAuthMiddleware, logoutUser )
 
 
 export default router;
