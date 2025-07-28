@@ -7,7 +7,7 @@ import { updateUser } from "../models/user/UserModel.js";
 export const createAccessJWT = async (email) => {
   //create
   const token = jwt.sign({ email }, process.env.ACCESSJWT_SECRET, {
-    expiresIn: "15m",
+    expiresIn: "1m",
   });
   //store
   const obj = {
@@ -35,7 +35,7 @@ export const verifyAccessJWT = (token) => {
 export const createRefreshJWT = async (email) => {
   //create
   const refreshToken = jwt.sign({ email }, process.env.REFRESHJWT_SECRET, {
-    expiresIn: "30d",
+    expiresIn: "2m",
   });
   console.log(refreshToken);
   //store
