@@ -36,3 +36,24 @@ export const userAccountVerfiedNotificationTemplate = ({email ,name}) => {
     };
 
 }
+
+export const passwordResetOTPsendTemplate = ({email, name, otp}) => {
+    return {
+           from: `'Local library <${process.env.SMTP_EMAIL}>'`, //sender address
+        to: `${email}`, //list of receivers
+        subject: 'Reset your password', // subject line
+        text: `'Hello ${name}, here is your OTP to reset the password. This will expire in 5 min ${otp}.'`, //plain text
+        html: `
+         <p>Dear ${name} </p>  
+         <br />
+         <p>Here is your OTP to reset the password. This will expire in 5 min.
+         <br />
+         OTP is ${otp}.</p>
+         <br />
+
+         Thank you
+   
+        
+        ` 
+    }
+}

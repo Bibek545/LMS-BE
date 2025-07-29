@@ -14,6 +14,7 @@ import { v4 as uuidv4 } from "uuid";
 import {
   userActivationEmail,
   userAccountVerfiedNotification,
+  passwordResetOTPSendEmail,
 } from "../services/emailService.js";
 import { Error } from "mongoose";
 import SessionSchema from "../models/session/SessionSchema.js";
@@ -149,59 +150,59 @@ export const loginUser = async (req, res, next) => {
   }
 };
 
-
-export const logoutUser = async (req, res ,next) => {
-
+export const logoutUser = async (req, res, next) => {
   try {
     //get the token
 
-
-    const {email} = req.userInfo
+    const { email } = req.userInfo;
 
     //update the refreshJwt to empty ""
-    
-    await updateUser({email}, {refreshJWT: " "})
+
+    await updateUser({ email }, { refreshJWT: " " });
 
     //remove the accessJWT from the session table
-    await deleteMultipleSession({ association: email })
-    responseClient({req, res , message: "you are logged out"})
-
+    await deleteMultipleSession({ association: email });
+    responseClient({ req, res, message: "you are logged out" });
   } catch (error) {
-    next(error)
-
-  };
+    next(error);
+  }
 };
 
-export const generateOTP = async (req, res , next) => {
+export const generateOTP = async (req, res, next) => {
   try {
     //get user by. email
 
-    const { email } = req. body
+    const { email } = req.body;
 
-    const user = await getUserByEmail(email);
-    
-    if(user?._id) {
-          //generate the otp
-       const otp = generateRandomOTP();
-       console.log(otp);
+    const user = typeof email === "string" ? await getUserByEmail(email) : null;
 
-           //store the otp in session table
-    const session = await createNewSession({
-      token: otp,
-      association: email,
-    });
+    if (user?._id) {
+      //generate the otp
+      const otp = generateRandomOTP();
+      console.log(otp);
 
-      if(session?._id) {
-      console.log(session);
+      //store the otp in session table
+      const session = await createNewSession({
+        token: otp,
+        association: email,
+        expire: new Date(Date.now() + 1000 * 60 * 5), //expires in 5 min
+      });
+
+      if (session?._id) {
+        console.log(session);
+
+        //send otp tp users email
+        const info = await passwordResetOTPSendEmail({
+          email,
+          name: user.fName,
+          otp,
+        });
+        console.log(info)
+      }
     }
-    }
 
-
-  
-
-    //send otp tp users email
-    responseClient({req, res, message: "OTP is sent to your email"})
-  } catch {
-    
-  };
+    responseClient({ req, res, message: "OTP is sent to your email" });
+  } catch (error){
+    next(error)
+  }
 };
