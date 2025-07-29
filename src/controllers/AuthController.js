@@ -18,6 +18,8 @@ import {
 import { Error } from "mongoose";
 import SessionSchema from "../models/session/SessionSchema.js";
 import { getJwts } from "../utils/jwt.js";
+import { generateRandomOTP } from "../utils/randomGenrator.js";
+import { token } from "morgan";
 
 const insertNewUserController = async (req, res, next) => {
   try {
@@ -167,5 +169,39 @@ export const logoutUser = async (req, res ,next) => {
   } catch (error) {
     next(error)
 
-  }
-}
+  };
+};
+
+export const generateOTP = async (req, res , next) => {
+  try {
+    //get user by. email
+
+    const { email } = req. body
+
+    const user = await getUserByEmail(email);
+    
+    if(user?._id) {
+          //generate the otp
+       const otp = generateRandomOTP();
+       console.log(otp);
+
+           //store the otp in session table
+    const session = await createNewSession({
+      token: otp,
+      association: email,
+    });
+
+      if(session?._id) {
+      console.log(session);
+    }
+    }
+
+
+  
+
+    //send otp tp users email
+    responseClient({req, res, message: "OTP is sent to your email"})
+  } catch {
+    
+  };
+};

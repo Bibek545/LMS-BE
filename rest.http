@@ -52,3 +52,12 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY2Q3Q
 ###renew acessJWT
 GET {{rootUrl}}/api/v1/auth/renew-jwt
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY2Q3QGJlYy5jb20iLCJpYXQiOjE3NTM2MjA0MjQsImV4cCI6MTc1NjIxMjQyNH0.CjOs4kW6_P1RDZBDKY1NP8A7O02X9Ei7Mho1gEs_Y0I
+
+
+###generate the otp
+POST {{rootUrl}}/api/v1/auth/otp
+Content-Type:  application/json 
+
+{
+  "email": "abcd7@becd.com"
+}

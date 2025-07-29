@@ -1,6 +1,6 @@
 import express from 'express'
 // import { createNewUser } from '../models/user/UserModel.jsx';
-import insertNewUserController, { activateUser, loginUser, logoutUser } from '../controllers/AuthController.js';
+import insertNewUserController, { activateUser, generateOTP, loginUser, logoutUser } from '../controllers/AuthController.js';
 import { newUserDataValidation, userActivationDataValidation, loginDataValidation } from '../middleware/validations/authDataValidation.js';
 import { renewAccessJWTMiddleware, userAuthMiddleware } from '../middleware/authMiddleware.js';
 
@@ -21,6 +21,9 @@ router.get("/renew-jwt", renewAccessJWTMiddleware)
 
 //loging out the user 
 router.get("/logout", userAuthMiddleware, logoutUser )
+
+//receving the OTP
+router.post("/otp", generateOTP)
 
 
 export default router;
