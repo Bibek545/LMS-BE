@@ -173,6 +173,7 @@ export const generateOTP = async (req, res, next) => {
     //get user by. email
 
     const { email } = req.body;
+     console.log("REQ BODY:", req.body);
 
     const user = typeof email === "string" ? await getUserByEmail(email) : null;
 

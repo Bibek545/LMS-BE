@@ -48,6 +48,8 @@ export const passwordResetOTPsendTemplate = ({email, name, otp}) => {
          <br />
          <p>Here is your OTP to reset the password. This will expire in 5 min.
          <br />
+
+         <br/>
          OTP is ${otp}.</p>
          <br />
 
