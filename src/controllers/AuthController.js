@@ -9,15 +9,20 @@ import {
   createNewSession,
   deleteMultipleSession,
   deleteSession,
+  getSession,
 } from "../models/session/SessionModel.js";
 import { v4 as uuidv4 } from "uuid";
 import {
   userActivationEmail,
   userAccountVerfiedNotification,
+  passwordResetOTPSendEmail,
+  userProfileUpdateNotificationEmail,
 } from "../services/emailService.js";
 import { Error } from "mongoose";
 import SessionSchema from "../models/session/SessionSchema.js";
 import { getJwts } from "../utils/jwt.js";
+import { generateRandomOTP } from "../utils/randomGenrator.js";
+import { token } from "morgan";
 
 const insertNewUserController = async (req, res, next) => {
   try {
@@ -147,25 +152,102 @@ export const loginUser = async (req, res, next) => {
   }
 };
 
-
-export const logoutUser = async (req, res ,next) => {
-
+export const logoutUser = async (req, res, next) => {
   try {
     //get the token
 
-
-    const {email} = req.userInfo
+    const { email } = req.userInfo;
 
     //update the refreshJwt to empty ""
-    
-    await updateUser({email}, {refreshJWT: " "})
+
+    await updateUser({ email }, { refreshJWT: " " });
 
     //remove the accessJWT from the session table
-    await deleteMultipleSession({ association: email })
-    responseClient({req, res , message: "you are logged out"})
-
+    await deleteMultipleSession({ association: email });
+    responseClient({ req, res, message: "you are logged out" });
   } catch (error) {
-    next(error)
-
+    next(error);
   }
-}
+};
+
+export const generateOTP = async (req, res, next) => {
+  try {
+    //get user by. email
+
+    const { email } = req.body;
+    console.log("REQ BODY:", req.body);
+
+    const user = typeof email === "string" ? await getUserByEmail(email) : null;
+
+    if (user?._id) {
+      //generate the otp
+      const otp = generateRandomOTP();
+      console.log(otp);
+
+      //store the otp in session table
+      const session = await createNewSession({
+        token: otp,
+        association: email,
+        expire: new Date(Date.now() + 1000 * 60 * 5), //expires in 5 min
+      });
+
+      if (session?._id) {
+        console.log(session);
+
+        //send otp tp users email
+        const info = await passwordResetOTPSendEmail({
+          email,
+          name: user.fName,
+          otp,
+        });
+        console.log(info);
+      }
+    }
+
+    responseClient({ req, res, message: "OTP is sent to your email" });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const resetNewPass = async (req, res, next) => {
+  try {
+    //get user email , pass and otp
+    console.log(req.body);
+    const { email, password, otp } = req.body;
+
+    //graab the session
+    const session = await getSession({
+      token: otp,
+      association: email,
+    });
+
+    if (session?._id) {
+      //encrypt the password
+      const hashPass = hashPassword(password);
+
+      //update the user table
+
+      const user = await updateUser({ email }, { password: hashPass });
+      if (user?._id) {
+        //send email notification as well
+        userProfileUpdateNotificationEmail({ email, name: user.fName });
+
+        return responseClient({
+          req,
+          res,
+          message: "Your password has been updated, you can log in now.",
+        });
+      }
+    }
+
+    responseClient({
+      req,
+      res,
+      statusCode: 400,
+      message: "Invalid data or token expired",
+    });
+  } catch (error) {
+    next(error);
+  }
+};
