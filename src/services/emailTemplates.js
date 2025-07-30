@@ -59,3 +59,26 @@ export const passwordResetOTPsendTemplate = ({email, name, otp}) => {
         ` 
     }
 }
+
+export const userProfileUpdateNotificationTemplate = ({email , name})=> {
+    return {
+                from: `'Local library <${process.env.SMTP_EMAIL}>'`, //sender address
+        to: `${email}`, //list of receivers
+        subject: 'Your account has been updated', // subject line
+        text: `'Hello ${name}, your account has been updated. If this wasn't you. Change your password and contact us.'`, //plain text
+        html: `
+         <p>Dear ${name} </p>  
+         <br />
+         <p>Your account has been updated. If this wasn't you. Change your password and contact us.
+         <br />
+
+         <br/>
+        
+         <br />
+
+         Thank you
+   
+        
+        ` 
+    }
+}

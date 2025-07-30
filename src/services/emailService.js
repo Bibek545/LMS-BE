@@ -1,4 +1,4 @@
-import { userActivationEmailTemplate, userAccountVerfiedNotificationTemplate, passwordResetOTPsendTemplate } from "./emailTemplates.js";
+import { userActivationEmailTemplate, userAccountVerfiedNotificationTemplate, passwordResetOTPsendTemplate, userProfileUpdateNotificationTemplate } from "./emailTemplates.js";
 import { emailTransporter } from "./transport.js";
 import nodemailer from "nodemailer";
 
@@ -28,4 +28,10 @@ export const passwordResetOTPSendEmail = async (obj) => {
   const info = await transport.sendMail(passwordResetOTPsendTemplate(obj));
   return info.messageId;
 
+}
+
+export const userProfileUpdateNotificationEmail = async (obj)=> {
+   const transport = emailTransporter();
+   const info = await transport.sendMail(userProfileUpdateNotificationTemplate(obj));
+   return info.messageId
 }

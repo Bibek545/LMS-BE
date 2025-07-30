@@ -1,7 +1,7 @@
 import express from 'express'
 // import { createNewUser } from '../models/user/UserModel.jsx';
-import insertNewUserController, { activateUser, generateOTP, loginUser, logoutUser } from '../controllers/AuthController.js';
-import { newUserDataValidation, userActivationDataValidation, loginDataValidation } from '../middleware/validations/authDataValidation.js';
+import insertNewUserController, { activateUser, generateOTP, loginUser, logoutUser, resetNewPass } from '../controllers/AuthController.js';
+import { newUserDataValidation, userActivationDataValidation, loginDataValidation, resetPasswordValidation } from '../middleware/validations/authDataValidation.js';
 import { renewAccessJWTMiddleware, userAuthMiddleware } from '../middleware/authMiddleware.js';
 
 const router = express.Router()
@@ -25,5 +25,7 @@ router.get("/logout", userAuthMiddleware, logoutUser )
 //receving the OTP
 router.post("/otp", generateOTP)
 
+//resetting the password
+router.post("/reset-password",resetPasswordValidation, resetNewPass)
 
 export default router;

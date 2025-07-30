@@ -9,12 +9,14 @@ import {
   createNewSession,
   deleteMultipleSession,
   deleteSession,
+  getSession,
 } from "../models/session/SessionModel.js";
 import { v4 as uuidv4 } from "uuid";
 import {
   userActivationEmail,
   userAccountVerfiedNotification,
   passwordResetOTPSendEmail,
+  userProfileUpdateNotificationEmail,
 } from "../services/emailService.js";
 import { Error } from "mongoose";
 import SessionSchema from "../models/session/SessionSchema.js";
@@ -173,7 +175,7 @@ export const generateOTP = async (req, res, next) => {
     //get user by. email
 
     const { email } = req.body;
-     console.log("REQ BODY:", req.body);
+    console.log("REQ BODY:", req.body);
 
     const user = typeof email === "string" ? await getUserByEmail(email) : null;
 
@@ -198,12 +200,54 @@ export const generateOTP = async (req, res, next) => {
           name: user.fName,
           otp,
         });
-        console.log(info)
+        console.log(info);
       }
     }
 
     responseClient({ req, res, message: "OTP is sent to your email" });
-  } catch (error){
-    next(error)
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const resetNewPass = async (req, res, next) => {
+  try {
+    //get user email , pass and otp
+    console.log(req.body);
+    const { email, password, otp } = req.body;
+
+    //graab the session
+    const session = await getSession({
+      token: otp,
+      association: email,
+    });
+
+    if (session?._id) {
+      //encrypt the password
+      const hashPass = hashPassword(password);
+
+      //update the user table
+
+      const user = await updateUser({ email }, { password: hashPass });
+      if (user?._id) {
+        //send email notification as well
+        userProfileUpdateNotificationEmail({ email, name: user.fName });
+
+        return responseClient({
+          req,
+          res,
+          message: "Your password has been updated, you can log in now.",
+        });
+      }
+    }
+
+    responseClient({
+      req,
+      res,
+      statusCode: 400,
+      message: "Invalid data or token expired",
+    });
+  } catch (error) {
+    next(error);
   }
 };

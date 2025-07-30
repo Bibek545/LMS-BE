@@ -1,5 +1,6 @@
 
-import { EMAILREQ, FNAMEREQ, LNAMEREQ, PASSWORDREQ, PHONE, SESSIONREQ, TOKENREQ } from "./joiConst.js";
+import { token } from "morgan";
+import { EMAILREQ, FNAMEREQ, LNAMEREQ, PASSWORDREQ, PHONE, SESSIONREQ, TOKENREQ, OTP } from "./joiConst.js";
 import { validateData } from "./joiValidation.js";
 
 export const newUserDataValidation = (req,res,next) => {
@@ -37,4 +38,13 @@ export const loginDataValidation = (req, res, next) => {
         password: PASSWORDREQ,
     }
     validateData({req, res, next, obj});
+};
+
+export const resetPasswordValidation = (req, res, next)=> {
+   const obj = {
+    email: EMAILREQ,
+    password: PASSWORDREQ,
+    otp: OTP,
+   }
+   validateData({req, res, next, obj});
 }
