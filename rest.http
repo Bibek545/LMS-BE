@@ -1,4 +1,5 @@
-@rootUrl = https://lms-fe-jade.vercel.app/
+# @rootUrl = http://localhost:8000
+@rootUrl = https://lms-be-zh0y.onrender.com/
 
 #API LIST
 

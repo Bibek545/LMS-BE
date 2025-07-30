@@ -16,4 +16,4 @@ export const getUserByEmail = (email) => {
 
 export const getOneUser =(filter)=> {
     return UserSchema.findOne(filter);
-}
+} 
