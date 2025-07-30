@@ -20,8 +20,7 @@ app.use(morgan("dev"));
 
 app.use(express.json());
 
-app.use(errorHandle);
-app.use(responseClient);
+
 
 // API endpoints
 import router from './src/routes/authRoute.js';
@@ -36,7 +35,8 @@ app.get("/", (req ,res)=> {
   responseClient({req,res,message})
 });
 
-
+app.use(errorHandle);
+app.use(responseClient);
 
 dbConnect()
 .then(()=> {
