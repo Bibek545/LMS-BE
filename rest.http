@@ -1,5 +1,5 @@
 # @rootUrl = http://localhost:8000
-@rootUrl = https://lms-be-zh0y.onrender.com/
+@rootUrl = https://lms-be-zh0y.onrender.com/   
 
 #API LIST
 
@@ -15,7 +15,7 @@ Content-Type: application/json
 
 {
    
-  "fName": "bibek",
+  "fName": "srijana",
   "lName": "hamal",
   "email": "abcd7@bec.com",
   "password": "test",
