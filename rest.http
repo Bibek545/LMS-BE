@@ -40,7 +40,7 @@ Content-Type: application/json
 
 {
     "email": "bbekhamal26@gmail.com",
-   "password":"Bibek@09"
+   "password":"Bibek@7"
 
 }
 
@@ -59,7 +59,7 @@ POST {{rootUrl}}/api/v1/auth/otp
 Content-Type:  application/json 
 
 {
-  "email": "abcd7@bec.com"
+  "email": "bbekhamal26@gmail.com"
 }
 
 ###reset password
@@ -68,7 +68,7 @@ Content-Type: application/json
 
 {
   "email": "bbekhamal26@gmail.com",
-    "password": "Bibek@09",
-      "otp":5320
+    "password": "Bibek@7",
+      "otp":7408
 
 }
