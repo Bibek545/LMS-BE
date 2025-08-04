@@ -1,5 +1,5 @@
-# @rootUrl = http://localhost:8000
-@rootUrl = https://lms-be-zh0y.onrender.com
+@rootUrl = http://localhost:8000
+# @rootUrl = https://lms-be-zh0y.onrender.com
 
 #API LIST
 
@@ -40,7 +40,7 @@ POST {{rootUrl}}/api/v1/auth/login
 Content-Type: application/json
 
 {
-    "email": "bbekhamal26@gmail.com",
+    "email": "abcd7@bec.com",
    "password":"Bibek@9"
 
 }
@@ -48,7 +48,7 @@ Content-Type: application/json
 ###get user profile
 
 GET {{rootUrl}}/api/v1/users/profile
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY2Q3QGJlYy5jb20iLCJpYXQiOjE3NTM2MTM2OTYsImV4cCI6MTc1MzYxNDU5Nn0.RNgaclPWWl_DIPxspyphYLOD1p_4CoPUE8cYK7brOz4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY2Q3QGJlYy5jb20iLCJpYXQiOjE3NTM4Nzg3OTgsImV4cCI6MTc1Mzg3OTY5OH0.zDk-yMms3lT8nK3H7E6oq8T-vjq1Dc3CUNj0fvDgCro
 
 ###renew acessJWT
 GET {{rootUrl}}/api/v1/auth/renew-jwt
@@ -72,4 +72,23 @@ Content-Type: application/json
     "password": "Bibek@7",
       "otp":7408
 
+}
+
+
+###bBOOKS
+
+###get books
+POST {{rootUrl}}/api/v1/books
+Content-Type: application/json
+
+{
+  "title":"The Flashpoint Paradox",
+  "publishedYear":2011,
+  "author":"Geoff Johns",
+  "thumbnail":"",
+  "isbn":"12345678",
+  "genre": "comics",
+  "availability": true,
+  "status": "active",
+  "averageRating": 9.9,
 }
