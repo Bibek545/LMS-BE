@@ -80,16 +80,18 @@ Content-Type: application/json
 ###get books
 POST {{rootUrl}}/api/v1/books
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY2Q3QGJlYy5jb20iLCJpYXQiOjE3NTQzNzcyNTUsImV4cCI6MTc1NDM3ODE1NX0.L5IGkcp2oATnWP4xKPrOcAboiBLmfp9zvgMemL7c_yY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY2Q3QGJlYy5jb20iLCJpYXQiOjE3NTQzODIwMzgsImV4cCI6MTc1NDM4MjkzOH0.zBA5iPxtAMNqAe6Ah6VyLLV_q0BkjsNW-xmtVQTw-rw
 
 {
   "title":"The Flashpoint Paradox",
-  "publishedYear":2011,
+  "publishedyear":2011,
   "author":"Geoff Johns",
   "thumbnail":"thumbnail",
-  "isbn":"12345678",
+  "isbn":"1234567856",
   "genre": "comics",
   "availability": true,
   "status": "active",
-  "averageRating": 9.9
+  "averageRating": 9.9,
+  "descirption": "this is the flash point paradox"
+
 }

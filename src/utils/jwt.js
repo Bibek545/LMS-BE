@@ -25,10 +25,10 @@ export const verifyAccessJWT = (token) => {
    console.log("🔐 Verifying Access JWT:", token); // 
   try {
     const decoded = jwt.verify(token, process.env.ACCESSJWT_SECRET);
-     console.log("✅ Decoded JWT:", decoded);
+     console.log(" Decoded JWT:", decoded);
     return decoded;
   } catch (error) {
-     console.log("❌ JWT verify error:", error.message);
+     console.log("JWT verify error:", error.message);
     return error.message;
   }
 };
