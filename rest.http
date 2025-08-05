@@ -29,8 +29,8 @@ Content-Type: application/json
 
 {
 
-  "sessionId": "6881bdda889aa42355308a11",
-  "t": "d255a3e3-4d28-4724-acd9-a4656db53018"
+  "sessionId": "6891a83c9ffd2c2ec5b30021",
+  "t": "b8683368-5a8e-498e-8afd-df85ca7de673"
 
 }
 
@@ -41,7 +41,7 @@ Content-Type: application/json
 
 {
     "email": "abcd7@bec.com",
-   "password":"Bibek@9"
+   "password":"test"
 
 }
 
@@ -80,15 +80,16 @@ Content-Type: application/json
 ###get books
 POST {{rootUrl}}/api/v1/books
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY2Q3QGJlYy5jb20iLCJpYXQiOjE3NTQzNzcyNTUsImV4cCI6MTc1NDM3ODE1NX0.L5IGkcp2oATnWP4xKPrOcAboiBLmfp9zvgMemL7c_yY
 
 {
   "title":"The Flashpoint Paradox",
   "publishedYear":2011,
   "author":"Geoff Johns",
-  "thumbnail":"",
+  "thumbnail":"thumbnail",
   "isbn":"12345678",
   "genre": "comics",
   "availability": true,
   "status": "active",
-  "averageRating": 9.9,
+  "averageRating": 9.9
 }

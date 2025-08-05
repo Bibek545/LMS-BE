@@ -1,4 +1,4 @@
-import BookSchema from "./BookSchema";
+import BookSchema from "./BookSchema.js";
 import mongoose from "mongoose";
 
 //insert new book

@@ -1,4 +1,4 @@
-import { required } from "joi";
+// import { required } from "joi";
 import mongoose from "mongoose";
 
 const bookSchema = new mongoose.Schema(
@@ -41,6 +41,22 @@ const bookSchema = new mongoose.Schema(
 
     averageRating: {
       type: Number, // average of all ratings
+    },
+    addedBy: {
+      name: {
+        type: String,
+      },
+      adminId: {
+        type: mongoose.Types.ObjectId,
+      },
+    },
+    lastUpdatedBy: {
+      name: {
+        type: String,
+      },
+      adminId: {
+        type: mongoose.Types.ObjectId,
+      },
     },
   },
   {
