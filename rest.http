@@ -15,9 +15,9 @@ Content-Type: application/json
 
 {
    
-  "fName": "srijana",
+  "fName": "bibek",
   "lName": "hamal",
-  "email": "abcd7@bec.com",
+  "email": "b@b.com",
   "password": "test",
   "phone": "123456789"
 }
@@ -40,8 +40,8 @@ POST {{rootUrl}}/api/v1/auth/login
 Content-Type: application/json
 
 {
-    "email": "abcd7@bec.com",
-   "password":"test"
+    "email": "bbekhamal26@gmail.com",
+   "password":"Bibek@9"
 
 }
 
@@ -75,16 +75,23 @@ Content-Type: application/json
 }
 
 
-###bBOOKS
+###bBOOKS for public
+GET {{rootUrl}}/api/v1/books
+
+
+###geting books for admin
+GET {{rootUrl}}/api/v1/books/admin
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJiZWtoYW1hbDI2QGdtYWlsLmNvbSIsImlhdCI6MTc1OTI5Nzg4NywiZXhwIjoxNzU5Mjk4Nzg3fQ.7TxF0-Xc0H2umI2dNg4VtJlHHXvkqIBYQDrjLJq1oNM
 
 ###get books
 POST {{rootUrl}}/api/v1/books
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY2Q3QGJlYy5jb20iLCJpYXQiOjE3NTQzODIwMzgsImV4cCI6MTc1NDM4MjkzOH0.zBA5iPxtAMNqAe6Ah6VyLLV_q0BkjsNW-xmtVQTw-rw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJiZWtoYW1hbDI2QGdtYWlsLmNvbSIsImlhdCI6MTc1OTI5Nzg4NywiZXhwIjoxNzU5Mjk4Nzg3fQ.7TxF0-Xc0H2umI2dNg4VtJlHHXvkqIBYQDrjLJq1oNM
 
 {
   "title":"The Flashpoint Paradox",
-  "publishedyear":2011,
+  "publishedYear":2011,
   "author":"Geoff Johns",
   "thumbnail":"thumbnail",
   "isbn":"1234567856",
@@ -92,6 +99,6 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY2Q3Q
   "availability": true,
   "status": "active",
   "averageRating": 9.9,
-  "descirption": "this is the flash point paradox"
+  "description": "this is the flash point paradox"
 
 }

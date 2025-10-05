@@ -40,3 +40,21 @@ export const PUBLISHED_YEAR_REQ = PUBLISHED_YEAR.required();
 
 export const ISBN = Joi.number().integer().min(1000000000).max(9999999999999);
 export const ISBN_REQ = ISBN.required();
+
+// Boolean (true/false)
+export const IS_ACTIVE = Joi.boolean();
+
+// Boolean required
+export const IS_ACTIVE_REQ = Joi.boolean().required();
+
+// String status (only "active" or "inactive")
+export const STATUS = Joi.string().valid("active", "inactive");
+
+// Required version
+export const STATUS_REQ = Joi.string().valid("active", "inactive").required();
+
+// Average rating with decimals, range 0–5
+export const AVERAGE_RATING = Joi.number().min(0).max(10).precision(2);
+
+// Required version
+export const AVERAGE_RATING_REQ = Joi.number().min(0).max(10).precision(2).required();

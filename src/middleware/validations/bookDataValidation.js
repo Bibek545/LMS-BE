@@ -1,5 +1,5 @@
 
-import { ISBN_REQ, LONG_STR_REQ, PUBLISHED_YEAR_REQ, SHORT_STR_REQ,  } from "./joiConst.js"
+import { AVERAGE_RATING_REQ, IS_ACTIVE_REQ, ISBN_REQ, LONG_STR_REQ, PUBLISHED_YEAR_REQ, SHORT_STR_REQ, STATUS_REQ,  } from "./joiConst.js"
 import { validateData } from "./joiValidation.js";
 
 export const newBookDataValidation = (req, res, next) => {
@@ -21,7 +21,11 @@ export const newBookDataValidation = (req, res, next) => {
         thumbnail: LONG_STR_REQ,
         isbn: ISBN_REQ,
         genre: SHORT_STR_REQ,
-        description: LONG_STR_REQ
+        description: LONG_STR_REQ,
+        availability: IS_ACTIVE_REQ,
+     //    status:STATUS_REQ,
+     //    averageRating: AVERAGE_RATING_REQ,
+
      };
      validateData({req, res, next, obj});
 };
