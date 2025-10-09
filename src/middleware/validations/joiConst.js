@@ -58,3 +58,9 @@ export const AVERAGE_RATING = Joi.number().min(0).max(10).precision(2);
 
 // Required version
 export const AVERAGE_RATING_REQ = Joi.number().min(0).max(10).precision(2).required();
+
+export const _ID = Joi.string();
+export const _ID_REQ = _ID.required();
+
+export const EXPECTEDAVAILABLE = Joi.date().allow(null, "", );
+export const EXPECTEDAVAILABLE_REQ = EXPECTEDAVAILABLE.required();

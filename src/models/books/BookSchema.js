@@ -7,12 +7,12 @@ const bookSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-        
+
     slug: {
       type: String,
       unique: true,
       index: 1,
-      required: true
+      required: true,
     },
     author: {
       type: String,
@@ -40,13 +40,16 @@ const bookSchema = new mongoose.Schema(
       type: Boolean,
       // default: false,
     },
+    expectedAvailable: {
+      type: Date,
+      default: null,
+    }, // ✅ New field
 
     status: {
       type: String,
       default: "inactive", // active or inactive
     },
 
-    
     description: {
       type: String,
       required: true,
