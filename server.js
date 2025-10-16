@@ -19,6 +19,7 @@ app.use(morgan("dev"));
 // parse your json files
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true}));
 
 
 
