@@ -17,6 +17,14 @@ import {
 
 const router = express.Router();
 
+//multer setup
+import multer from "multer";
+
+const upload = multer ({ dest: "uploads/"});
+
+//end multer setup
+
+
 //public api
 router.get("/", getAllPublicBooksController);
 
@@ -36,7 +44,9 @@ router.post(
   "/",
   userAuthMiddleware,
   adminAuthMiddleware,
+  upload.single("image"),
   newBookDataValidation,
+  
   insertNewBook
 );
 
