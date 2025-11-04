@@ -20,10 +20,27 @@ const router = express.Router();
 //multer setup
 import multer from "multer";
 
-const upload = multer ({ dest: "uploads/"});
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "./uploads");
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    console.log(file)
+    const filePath =
+      file.originalname +
+      "-" +
+      uniqueSuffix +
+      "." +
+      file.mimetype.split("/")[1];
+    cb(null, filePath);
+  },
+});
+
+const upload = multer({ storage: storage });
+// const upload = multer ({ dest: "uploads/"});
 
 //end multer setup
-
 
 //public api
 router.get("/", getAllPublicBooksController);
@@ -44,9 +61,18 @@ router.post(
   "/",
   userAuthMiddleware,
   adminAuthMiddleware,
-  upload.single("image"),
+  // upload.single("image"),
+  upload.array("image",2),
+  (req, res, next) => {
+    console.log("✅ Files received:", req.files?.length);
+    console.log("✅ Body:", req.body);
+    next();
+  },
   newBookDataValidation,
-  
+ (req, res, next) => {
+    console.log("✅ Validation passed");
+    next();
+  },
   insertNewBook
 );
 

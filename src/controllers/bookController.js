@@ -5,6 +5,11 @@ import slugify from "slugify";
 export const insertNewBook = async (req, res, next) => {
   try {
     const { fName, _id } = req.userInfo;
+    
+    // ✅ Handle multiple uploaded images
+    const files = req.files || [];
+    const imagePaths = files.map(f => f.filename); // store file names (or use f.path if you prefer full path)
+
     const obj = {
       ...req.body,
       slug: slugify(req.body.title, { lower: true}),
@@ -12,6 +17,8 @@ export const insertNewBook = async (req, res, next) => {
 
       addedBy: { name: fName, adminId: _id },
       lastUpdatedBy: { name: fName, adminId: _id },
+
+       images: imagePaths, // <-- store the images array
     };
     // console.log(obj);
 
@@ -29,7 +36,8 @@ export const insertNewBook = async (req, res, next) => {
           statusCode: 401,
         });
   } catch (error) {
-    if(error.messsage.includes("E11000 duplicates key")) {
+     console.error(" insertNewBook error:", error.message);
+    if(error.message && error.messsage.includes("E11000 duplicates key")) {
       return responseClient({req,
         res,
         message: "Duplicate data not allowed: " + JSON.stringify(error.keyValue),

@@ -1,29 +1,53 @@
-import Joi from "joi"
-import { responseClient } from "../responseClient.js"
+import Joi from "joi";
+import { responseClient } from "../responseClient.js";
 
+export const validateData = ({ req, res, next, obj }) => {
+  try {
+    //create schema or rules
 
-export const validateData = ({req, res, next, obj}) => {
- //create schema or rules
-
-    const schema = Joi.object(obj)
+    const schema = Joi.object(obj);
 
     //pass ypur data (req.body) to the schema
-    const value = schema.validate(req.body)
+    const { error, value } = schema.validate(req.body, {
+      convert: true, // ✅ Converts strings ("2020") → numbers, ("true") → booleans
+      abortEarly: false, // ✅ Reports all errors instead of stopping at the first
+      stripUnknown: true, // ✅ Removes unexpected fields (optional, but helpful)
+    });
     // console.log(value)
-     
 
     //if pass go to the next() ot reponse the error from here
 
-
-    if(value.error) {
-        return responseClient({
-            req,
-            res,
-            message: value.error.message, 
-            statuscode:400,
-        })
+    // if(value.error) {
+    //     return responseClient({
+    //         req,
+    //         res,
+    //         message: value.error.message,
+    //         statuscode:400,
+    //     })
+    // }
+    // next();
+    // If validation fails, send response
+    if (error) {
+      return responseClient({
+        req,
+        res,
+        message: error.details.map((d) => d.message).join(", "),
+        statuscode: 400,
+      });
     }
+
+    // Attach the sanitized + converted values back to req.body
+    req.body = value;
+
+    // Continue to the next middleware
     next();
-
-}
-
+  } catch (err) {
+    console.error("Validation exception:", err.message);
+    return responseClient({
+      req,
+      res,
+      message: "Validation error: " + err.message,
+      statuscode: 500,
+    });
+  }
+};

@@ -23,7 +23,7 @@ app.use(express.urlencoded({ extended: true}));
 
 
 
-// API endpoints
+// API endpointsß
 import router from './src/routes/authRoute.js';
 import { errorHandle } from './src/middleware/errorHandler.js';
 import { responseClient } from './src/middleware/responseClient.js';
