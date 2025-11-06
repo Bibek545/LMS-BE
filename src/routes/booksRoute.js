@@ -27,7 +27,7 @@ const storage = multer.diskStorage({
   },
   filename: function (req, file, cb) {
     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    console.log(file)
+    console.log(file);
     const filePath =
       file.originalname +
       "-" +
@@ -38,23 +38,25 @@ const storage = multer.diskStorage({
   },
 });
 
-
 //filter to allow images only
-const fileFilter = (req, file, cb)=> {
-  const allowedFileTypes = /jpeg|jpg|png|gif|webp/
+const fileFilter = (req, file, cb) => {
+  const allowedFileTypes = /jpeg|jpg|png|gif|webp/;
   const extName = path.extname(file.originalname).toLowerCase();
   const isAllowedExt = allowedFileTypes.test(extName);
   const mimetype = allowedFileTypes.test(file.mimetype);
 
-  if(isAllowedExt && mimetype) {
-    cb(null, true); 
+  if (isAllowedExt && mimetype) {
+    cb(null, true);
   } else {
-    cb(new Error("Only jpeg|jpg|png|gif|webp these images are allowed"),false);
-
+    cb(new Error("Only jpeg|jpg|png|gif|webp these images are allowed"), false);
   }
- }
+};
 
-const upload = multer({ storage: storage, fileFilter});
+const upload = multer({
+  storage: storage,
+  fileFilter,
+  limits: { fileSize: 1024 * 2 * 1024 },
+});
 // const upload = multer ({ dest: "uploads/"});
 
 //end multer setup
@@ -79,14 +81,14 @@ router.post(
   userAuthMiddleware,
   adminAuthMiddleware,
   // upload.single("image"),
-  upload.array("image",2),
+  upload.array("image", 2),
   (req, res, next) => {
     console.log("✅ Files received:", req.files?.length);
     console.log("✅ Body:", req.body);
     next();
   },
   newBookDataValidation,
- (req, res, next) => {
+  (req, res, next) => {
     console.log("✅ Validation passed");
     next();
   },
