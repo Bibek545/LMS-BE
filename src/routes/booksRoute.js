@@ -14,6 +14,7 @@ import {
   newBookDataValidation,
   updatedBookDataValidation,
 } from "../middleware/validations/bookDataValidation.js";
+import path from "path";
 
 const router = express.Router();
 
@@ -37,7 +38,23 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({ storage: storage });
+
+//filter to allow images only
+const fileFilter = (req, file, cb)=> {
+  const allowedFileTypes = /jpeg|jpg|png|gif|webp/
+  const extName = path.extname(file.originalname).toLowerCase();
+  const isAllowedExt = allowedFileTypes.test(extName);
+  const mimetype = allowedFileTypes.test(file.mimetype);
+
+  if(isAllowedExt && mimetype) {
+    cb(null, true); 
+  } else {
+    cb(new Error("Only jpeg|jpg|png|gif|webp these images are allowed"),false);
+
+  }
+ }
+
+const upload = multer({ storage: storage, fileFilter});
 // const upload = multer ({ dest: "uploads/"});
 
 //end multer setup
@@ -76,7 +93,7 @@ router.post(
   insertNewBook
 );
 
-//iupdating a new book
+//updating a new book
 router.put(
   "/",
   userAuthMiddleware,
