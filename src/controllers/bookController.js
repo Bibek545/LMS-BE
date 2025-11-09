@@ -7,9 +7,10 @@ export const insertNewBook = async (req, res, next) => {
     const { fName, _id } = req.userInfo;
     
     // ✅ Handle multiple uploaded images
-    const files = req.files || [];
-    const imagePaths = files.map(f => f.filename); // store file names (or use f.path if you prefer full path)
-
+    // const files = req.files || [];
+    // const imagePaths = files.map(f => f.filename); // store file names (or use f.path if you prefer full path)
+    // console.log(req.files)
+    const { path } = req.file;
     const obj = {
       ...req.body,
       slug: slugify(req.body.title, { lower: true}),
@@ -18,7 +19,7 @@ export const insertNewBook = async (req, res, next) => {
       addedBy: { name: fName, adminId: _id },
       lastUpdatedBy: { name: fName, adminId: _id },
 
-       images: imagePaths, // <-- store the images array
+       thumbnail: path, // <-- store the images array
     };
     // console.log(obj);
 

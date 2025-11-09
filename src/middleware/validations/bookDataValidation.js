@@ -18,7 +18,7 @@ export const newBookDataValidation = (req, res, next) => {
         title: SHORT_STR_REQ,
         publishedYear: PUBLISHED_YEAR_REQ,
         author: SHORT_STR_REQ,
-        thumbnail: LONG_STR_REQ,
+     //    thumbnail: LONG_STR_REQ, d
         isbn: ISBN_REQ,
         genre: SHORT_STR_REQ, 
         description: LONG_STR_REQ,

@@ -80,8 +80,8 @@ router.post(
   "/",
   userAuthMiddleware,
   adminAuthMiddleware,
-  // upload.single("image"),
-  upload.array("image", 2),
+  upload.single("image"),
+  // upload.array("image", 2),
   (req, res, next) => {
     console.log("✅ Files received:", req.files?.length);
     console.log("✅ Body:", req.body);
