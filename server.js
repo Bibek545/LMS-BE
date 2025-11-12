@@ -21,6 +21,11 @@ app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
 
+import path from "path";
+
+// ✅ Serve images statically
+app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
+
 
 
 // API endpointsß
