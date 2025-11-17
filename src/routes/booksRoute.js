@@ -57,6 +57,9 @@ const upload = multer({
   fileFilter,
   limits: { fileSize: 1024 * 2 * 1024 },
 });
+
+
+
 // const upload = multer ({ dest: "uploads/"});
 
 //end multer setup
@@ -80,18 +83,9 @@ router.post(
   "/",
   userAuthMiddleware,
   adminAuthMiddleware,
-  upload.single("image"),
-  // upload.array("image", 2),
-  (req, res, next) => {
-    console.log("✅ Files received:", req.files?.length);
-    console.log("✅ Body:", req.body);
-    next();
-  },
+  // upload.single("image"),
+  upload.array("images", 2),
   newBookDataValidation,
-  (req, res, next) => {
-    console.log("✅ Validation passed");
-    next();
-  },
   insertNewBook
 );
 
@@ -100,6 +94,8 @@ router.put(
   "/",
   userAuthMiddleware,
   adminAuthMiddleware,
+  // upload.single("image"),
+  upload.array("images", 2),
   updatedBookDataValidation,
   updateBookController
 );
@@ -113,3 +109,21 @@ router.delete(
 );
 
 export default router;
+
+// 🔥 Multer error handler (logs clear "Unexpected field" etc.)
+router.use((err, req, res, next) => {
+  if (err instanceof multer.MulterError) {
+    console.error("❌ Multer error:", err.message);
+    return res.status(400).json({
+      status: "error",
+      message: err.message,
+    });
+  } else if (err) {
+    console.error("❌ Upload/general error:", err.message);
+    return res.status(400).json({
+      status: "error",
+      message: err.message,
+    });
+  }
+  next();
+});

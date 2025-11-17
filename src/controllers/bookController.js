@@ -52,6 +52,8 @@ export const insertNewBook = async (req, res, next) => {
 export const updateBookController = async (req, res, next) => {
   try {
     const { fName, _id } = req.userInfo;
+    console.log(req.files);
+    
     const obj = {
       ...req.body,
       lastUpdatedBy: { name: fName, adminId: _id },
@@ -71,7 +73,8 @@ export const updateBookController = async (req, res, next) => {
           message: "Unable to update the book in the database, try again later",
           statusCode: 400,
         });
-  } catch (error) {
+  } 
+  catch (error) {
     next(error);
   }
 };
