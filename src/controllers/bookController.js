@@ -1,6 +1,7 @@
 import { responseClient } from "../middleware/responseClient.js";
 import { createNewBook, deleteBook, getAllBooks, getAllPublicBooks, updateBook } from "../models/books/BookModel.js";
 import slugify from "slugify";
+import { resetNewPass } from "./AuthController.js";
 
 export const insertNewBook = async (req, res, next) => {
   try {
@@ -52,11 +53,17 @@ export const insertNewBook = async (req, res, next) => {
 export const updateBookController = async (req, res, next) => {
   try {
     const { fName, _id } = req.userInfo;
+    let imageList = [];
+
+    if( Array.isArray(req.files)) {
+      imageList = [req.body.imgUrl, ...req.files.map((obj) => obj.path)];
+    }
     console.log(req.files);
     
     const obj = {
       ...req.body,
       lastUpdatedBy: { name: fName, adminId: _id },
+      imageList,
     };
     // console.log(obj);
 

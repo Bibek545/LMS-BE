@@ -31,6 +31,8 @@ export const newBookDataValidation = (req, res, next) => {
 };
 
 export const updatedBookDataValidation = (req, res, next) => {
+
+   req.body.expectedAvailable = req.body.expectedAvailable === " null" ? null : req.body.expectedAvailable; 
      const obj = {
 
 //           "title":"The Flashpoint Paradox",
@@ -53,7 +55,8 @@ export const updatedBookDataValidation = (req, res, next) => {
         genre: SHORT_STR,
         description: LONG_STR,
         availability: IS_ACTIVE,
-        expectedAvailable:EXPECTEDAVAILABLE
+        expectedAvailable:EXPECTEDAVAILABLE,
+        imageList: LONG_STR_REQ.allow(""),
      //    status:STATUS_REQ,
      //    averageRating: AVERAGE_RATING_REQ,
 
