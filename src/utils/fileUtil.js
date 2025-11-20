@@ -3,7 +3,7 @@ import { unlink } from "fs";
 import { resolve } from "path";
 
 // actually deletes the file
-const deleteFile = (filePath) => {
+export const deleteFile = (filePath) => {
   console.log(filePath);
   unlink(resolve(filePath), () => {});
   try {

@@ -1,12 +1,19 @@
 import { responseClient } from "../middleware/responseClient.js";
-import { createNewBook, deleteBook, getAllBooks, getAllPublicBooks, updateBook } from "../models/books/BookModel.js";
+import {
+  createNewBook,
+  deleteBook,
+  getAllBooks,
+  getAllPublicBooks,
+  updateBook,
+} from "../models/books/BookModel.js";
 import slugify from "slugify";
 import { resetNewPass } from "./AuthController.js";
+import { deleteFile } from "../utils/fileUtil.js";
 
 export const insertNewBook = async (req, res, next) => {
   try {
     const { fName, _id } = req.userInfo;
-    
+
     // ✅ Handle multiple uploaded images
     // const files = req.files || [];
     // const imagePaths = files.map(f => f.filename); // store file names (or use f.path if you prefer full path)
@@ -14,13 +21,12 @@ export const insertNewBook = async (req, res, next) => {
     const { path } = req.file;
     const obj = {
       ...req.body,
-      slug: slugify(req.body.title, { lower: true}),
-
+      slug: slugify(req.body.title, { lower: true }),
 
       addedBy: { name: fName, adminId: _id },
       lastUpdatedBy: { name: fName, adminId: _id },
 
-       thumbnail: path, // <-- store the images array
+      thumbnail: path, // <-- store the images array
     };
     // console.log(obj);
 
@@ -38,11 +44,13 @@ export const insertNewBook = async (req, res, next) => {
           statusCode: 401,
         });
   } catch (error) {
-     console.error(" insertNewBook error:", error.message);
-    if(error.message && error.messsage.includes("E11000 duplicates key")) {
-      return responseClient({req,
+    console.error(" insertNewBook error:", error.message);
+    if (error.message && error.messsage.includes("E11000 duplicates key")) {
+      return responseClient({
+        req,
         res,
-        message: "Duplicate data not allowed: " + JSON.stringify(error.keyValue),
+        message:
+          "Duplicate data not allowed: " + JSON.stringify(error.keyValue),
         statusCode: 400,
       });
     }
@@ -53,17 +61,44 @@ export const insertNewBook = async (req, res, next) => {
 export const updateBookController = async (req, res, next) => {
   try {
     const { fName, _id } = req.userInfo;
-    let imageList = [];
+    // let imageList = [];
+    console.log(req.body);
+    req.body.imageList = req.body.imageList.split(",");
 
-    if( Array.isArray(req.files)) {
-      imageList = [req.body.imgUrl, ...req.files.map((obj) => obj.path)];
+    //remove imgToDelete list from the imagelist
+    // if (req.body.imgToDelete.length) {
+    //   req.body.imageList = req.body.imageList.filter(
+    //     (img) => !req.body.imgToDelete.includes(img)
+    //   );
+    //   req.body.imgToDelete.map((img) => deleteFile(img));
+    // }
+// ---- MINIMAL FIX: normalize imgToDelete ----
+    let imgToDelete = req.body.imgToDelete || [];
+
+    // If only 1 image was deleted → backend receives a string → convert to array
+    if (typeof imgToDelete === "string") {
+      imgToDelete = [imgToDelete];
+    }
+
+    //remove imgToDelete list from the imagelist
+    if (imgToDelete.length) {
+      req.body.imageList = req.body.imageList.filter(
+        (img) => !imgToDelete.includes(img)
+      );
+      imgToDelete.forEach((img) => deleteFile(img));
+    }
+    // ---- END OF MINIMAL FIX ----
+    if (Array.isArray(req.files)) {
+      req.body.imageList = [
+        ...req.body.imageList,
+        ...req.files.map((obj) => obj.path),
+      ];
     }
     console.log(req.files);
-    
+
     const obj = {
       ...req.body,
       lastUpdatedBy: { name: fName, adminId: _id },
-      imageList,
     };
     // console.log(obj);
 
@@ -80,19 +115,18 @@ export const updateBookController = async (req, res, next) => {
           message: "Unable to update the book in the database, try again later",
           statusCode: 400,
         });
-  } 
-  catch (error) {
+  } catch (error) {
     next(error);
   }
 };
 
-
 export const deleteBookController = async (req, res, next) => {
   try {
-    const {_id} = req.params;
+    const { _id } = req.params;
     const book = await deleteBook(_id);
+    book.imageList.map((img)=> deleteFile(img));
     book?._id
-          ? responseClient({
+      ? responseClient({
           req,
           res,
           message: "The book has been deleted successfully",
@@ -103,18 +137,19 @@ export const deleteBookController = async (req, res, next) => {
           message: "Unable to delete the book in the database, try again later",
           statusCode: 400,
         });
-
   } catch (error) {
     next(error);
   }
-}
+};
 export const getAllBooksController = async (req, res, next) => {
   try {
-   const payload = await getAllBooks()
-   responseClient({
-    req, res, payload, message: 'Theses are the all books'
-   })
-
+    const payload = await getAllBooks();
+    responseClient({
+      req,
+      res,
+      payload,
+      message: "Theses are the all books",
+    });
   } catch (error) {
     next(error);
   }
@@ -122,12 +157,14 @@ export const getAllBooksController = async (req, res, next) => {
 
 export const getAllPublicBooksController = async (req, res, next) => {
   try {
-   const payload = await getAllPublicBooks()
-   responseClient({
-    req, res, payload, message: 'Theses are all the public books'
-   })
-
+    const payload = await getAllPublicBooks();
+    responseClient({
+      req,
+      res,
+      payload,
+      message: "Theses are all the public books",
+    });
   } catch (error) {
     next(error);
   }
-}
+};
