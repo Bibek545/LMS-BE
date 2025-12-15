@@ -25,13 +25,14 @@ import path from "path";
 
 // ✅ Serve images statically
 app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
+// app.use(express.static("uploads"));
 
 
 
 // API endpointsß
 import router from './src/routes/authRoute.js';
 import { errorHandle } from './src/middleware/errorHandler.js';
-import { responseClient } from './src/middleware/responseClient.js';
+// import { responseClient } from './src/middleware/responseClient.js'; //will use when i am using response client as a middleware
 import userRoute from './src/routes/userRoute.js';
 import booksRoute from './src/routes/booksRoute.js'
 
@@ -46,7 +47,7 @@ app.get("/", (req ,res)=> {
 });
 
 app.use(errorHandle);
-app.use(responseClient);
+// app.use(responseClient);
 
 dbConnect()
 .then(()=> {

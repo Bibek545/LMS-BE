@@ -15,7 +15,6 @@ export const emptyBooks = (booksArr) => {
     return BookSchema.deleteMany(booksArr);
 }
 
-
 //update the book
 export const updateBook = ({_id, ...rest})=> {
     return BookSchema.findByIdAndUpdate(_id, rest);
