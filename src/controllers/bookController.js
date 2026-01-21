@@ -2,6 +2,7 @@ import { responseClient } from "../middleware/responseClient.js";
 import {
   createNewBook,
   deleteBook,
+  findABook,
   getAllBooks,
   getAllPublicBooks,
   updateBook,
@@ -158,6 +159,22 @@ export const getAllBooksController = async (req, res, next) => {
 export const getAllPublicBooksController = async (req, res, next) => {
   try {
     const payload = await getAllPublicBooks();
+    responseClient({
+      req,
+      res,
+      payload,
+      message: "Theses are all the public books",
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getSinglePublicBooksController = async (req, res, next) => {
+  try {
+    const {slug} = req.params;
+
+    const payload = await findABook({slug, status: "Active"});
     responseClient({
       req,
       res,

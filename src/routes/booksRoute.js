@@ -3,6 +3,7 @@ import {
   deleteBookController,
   getAllBooksController,
   getAllPublicBooksController,
+  getSinglePublicBooksController,
   insertNewBook,
   updateBookController,
 } from "../controllers/bookController.js";
@@ -66,6 +67,9 @@ const upload = multer({
 
 //public api
 router.get("/", getAllPublicBooksController);
+
+//public access api for single book
+router.get("/public/:slug", getSinglePublicBooksController);
 
 //for admin api
 router.get(

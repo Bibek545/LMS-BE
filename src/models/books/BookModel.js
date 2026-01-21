@@ -36,3 +36,8 @@ export const getAllBooks=() => {
 export const getAllPublicBooks=() => {
     return BookSchema.find({ status : "active"});
 }
+
+//find single book
+export const findABook = (filter) => {
+    return BookSchema.findOne(filter);
+}
