@@ -78,6 +78,9 @@ Content-Type: application/json
 ###bBOOKS for public
 GET {{rootUrl}}/api/v1/books
 
+###get a single book for public
+GET {{rootUrl}}/api/v1/books/public/whispers-of-the-ocean
+
 
 ###geting books for admin
 GET {{rootUrl}}/api/v1/books/admin

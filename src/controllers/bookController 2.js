@@ -2,7 +2,6 @@ import { responseClient } from "../middleware/responseClient.js";
 import {
   createNewBook,
   deleteBook,
-  findABook,
   getAllBooks,
   getAllPublicBooks,
   updateBook,
@@ -67,28 +66,13 @@ export const updateBookController = async (req, res, next) => {
     req.body.imageList = req.body.imageList.split(",");
 
     //remove imgToDelete list from the imagelist
-    // if (req.body.imgToDelete.length) {
-    //   req.body.imageList = req.body.imageList.filter(
-    //     (img) => !req.body.imgToDelete.includes(img)
-    //   );
-    //   req.body.imgToDelete.map((img) => deleteFile(img));
-    // }
-// ---- MINIMAL FIX: normalize imgToDelete ----
-    let imgToDelete = req.body.imgToDelete || [];
-
-    // If only 1 image was deleted → backend receives a string → convert to array
-    if (typeof imgToDelete === "string") {
-      imgToDelete = [imgToDelete];
-    }
-
-    //remove imgToDelete list from the imagelist
-    if (imgToDelete.length) {
+    if (req.body.imgToDelete.length) {
       req.body.imageList = req.body.imageList.filter(
-        (img) => !imgToDelete.includes(img)
+        (img) => !req.body.imgToDelete.includes(img)
       );
-      imgToDelete.forEach((img) => deleteFile(img));
+      req.body.imgToDelete.map((img) => deleteFile(img));
     }
-    // ---- END OF MINIMAL FIX ----
+
     if (Array.isArray(req.files)) {
       req.body.imageList = [
         ...req.body.imageList,
@@ -125,7 +109,6 @@ export const deleteBookController = async (req, res, next) => {
   try {
     const { _id } = req.params;
     const book = await deleteBook(_id);
-    book.imageList.map((img)=> deleteFile(img));
     book?._id
       ? responseClient({
           req,
@@ -163,25 +146,7 @@ export const getAllPublicBooksController = async (req, res, next) => {
       req,
       res,
       payload,
-      message: "here are all the book lists",
-    });
-  } catch (error) {
-    next(error);
-  }
-};
-
-export const getSinglePublicBooksController = async (req, res, next) => {
-  try {
-    const {slug} = req.params;
-
-    const payload = await findABook({slug, 
-      // status: "Active"
-    });
-    responseClient({
-      req,
-      res,
-      payload,
-      message: "Here, is the book",
+      message: "Theses are all the public books",
     });
   } catch (error) {
     next(error);
