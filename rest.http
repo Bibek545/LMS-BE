@@ -82,8 +82,7 @@ GET {{rootUrl}}/api/v1/books
 GET {{rootUrl}}/api/v1/books/public/whispers-of-the-ocean
 
 
-###geting books for admin
-GET {{rootUrl}}/api/v1/books/admin
+###geting books for admincGET {{rootUrl}}/api/v1/books/admin
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJiZWtoYW1hbDI2QGdtYWlsLmNvbSIsImlhdCI6MTc1OTI5Nzg4NywiZXhwIjoxNzU5Mjk4Nzg3fQ.7TxF0-Xc0H2umI2dNg4VtJlHHXvkqIBYQDrjLJq1oNM
 
