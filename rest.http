@@ -52,7 +52,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY2Q3Q
 
 ###renew acessJWT
 GET {{rootUrl}}/api/v1/auth/renew-jwt
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY2Q3QGJlYy5jb20iLCJpYXQiOjE3NTM2MjA0MjQsImV4cCI6MTc1NjIxMjQyNH0.CjOs4kW6_P1RDZBDKY1NP8A7O02X9Ei7Mho1gEs_Y0I
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJiZWtoYW1hbDI2QGdtYWlsLmNvbSIsImlhdCI6MTc3MDYwNzQyMiwiZXhwIjoxNzcwNjA4MzIyfQ.uFm408QSrcw_gHY0NMxuAnQD7EDXXWIR_9ozd21ycnA
 
 
 ###generate the otp
@@ -82,14 +82,15 @@ GET {{rootUrl}}/api/v1/books
 GET {{rootUrl}}/api/v1/books/public/whispers-of-the-ocean
 
 
-###geting books for admincGET {{rootUrl}}/api/v1/books/admin
+###geting books for adminc
+GET {{rootUrl}}/api/v1/books/admin
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJiZWtoYW1hbDI2QGdtYWlsLmNvbSIsImlhdCI6MTc1OTI5Nzg4NywiZXhwIjoxNzU5Mjk4Nzg3fQ.7TxF0-Xc0H2umI2dNg4VtJlHHXvkqIBYQDrjLJq1oNM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJiZWtoYW1hbDI2QGdtYWlsLmNvbSIsImlhdCI6MTc3MDYwNzQyMiwiZXhwIjoxNzcwNjA4MzIyfQ.uFm408QSrcw_gHY0NMxuAnQD7EDXXWIR_9ozd21ycnA
 
 ###get books
 POST {{rootUrl}}/api/v1/books
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJiZWtoYW1hbDI2QGdtYWlsLmNvbSIsImlhdCI6MTc1OTI5Nzg4NywiZXhwIjoxNzU5Mjk4Nzg3fQ.7TxF0-Xc0H2umI2dNg4VtJlHHXvkqIBYQDrjLJq1oNM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJiZWtoYW1hbDI2QGdtYWlsLmNvbSIsImlhdCI6MTc3MDYwNzQyMiwiZXhwIjoxNzcwNjA4MzIyfQ.uFm408QSrcw_gHY0NMxuAnQD7EDXXWIR_9ozd21ycnA
 
 {
   "title":"The Flashpoint Paradox",
@@ -102,5 +103,15 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJiZWtoY
   "status": "active",
   "averageRating": 9.9,
   "description": "this is the flash point paradox"
+}
 
+### burrow route
+POST {{rootUrl}}/api/v1/burrows
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJiZWtoYW1hbDI2QGdtYWlsLmNvbSIsImlhdCI6MTc3MDYwODcwMSwiZXhwIjoxNzcwNjA5NjAxfQ.mcdaVFD4ZubbIeau0mYV1ZrXgKwt_Yjav-7nCThqhIM
+
+{
+  "bookId": "6927a1b66e9271023584c0a3",
+  "title":"The Silent Forest",
+  "thumbnail":"uploads/silent_forest_2.jpg"
 }

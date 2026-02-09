@@ -35,10 +35,12 @@ import { errorHandle } from './src/middleware/errorHandler.js';
 // import { responseClient } from './src/middleware/responseClient.js'; //will use when i am using response client as a middleware
 import userRoute from './src/routes/userRoute.js';
 import booksRoute from './src/routes/booksRoute.js'
+import burrowRoute from './src/routes/burrowRoute.js'
 
 app.use("/api/v1/auth", router);
 app.use("/api/v1/users", userRoute );
 app.use("/api/v1/books", booksRoute);
+app.use("/api/v1/burrows", burrowRoute)
 
 // server status
 app.get("/", (req ,res)=> {
