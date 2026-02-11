@@ -108,10 +108,24 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJiZWtoY
 ### burrow route
 POST {{rootUrl}}/api/v1/burrows
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJiZWtoYW1hbDI2QGdtYWlsLmNvbSIsImlhdCI6MTc3MDYwODcwMSwiZXhwIjoxNzcwNjA5NjAxfQ.mcdaVFD4ZubbIeau0mYV1ZrXgKwt_Yjav-7nCThqhIM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJiZWtoYW1hbDI2QGdtYWlsLmNvbSIsImlhdCI6MTc3MDc4NjE0MiwiZXhwIjoxNzcwNzg3MDQyfQ.31c9pKXTbszLvshvTT_8knVrorvP2XkJEhFshsKmZwM
 
+[
+  {
+  "bookId": "6927a1b66e9271023584c0a3",
+  "bookTitle":"The Silent Forest",
+  "thumbnail":"uploads/silent_forest_2.jpg"
+},
 {
   "bookId": "6927a1b66e9271023584c0a3",
-  "title":"The Silent Forest",
+  "bookTitle":"The Silent Forest",
+  "thumbnail":"uploads/silent_forest_2.jpg"
+},
+{
+  "bookId": "6927a1b66e9271023584c0a3",
+  "bookTitle":"The Silent Forest",
   "thumbnail":"uploads/silent_forest_2.jpg"
 }
+]
+
+

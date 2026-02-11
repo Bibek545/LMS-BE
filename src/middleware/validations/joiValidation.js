@@ -6,7 +6,14 @@ export const validateData = ({ req, res, next, obj }) => {
   try {
     //create schema or rules
 
-    const schema = Joi.object(obj);
+    // const schema = Array.isArray(req.body) 
+    // ? Joi.array.items(obj).min(1).required()
+    // : Joi.object(obj);
+
+    const schema = Array.isArray(req.body)
+  ? Joi.array().items(Joi.object(obj)).min(1).required()
+  : Joi.object(obj);
+
 
     //pass ypur data (req.body) to the schema
     const { error, value } = schema.validate(req.body, {

@@ -8,6 +8,8 @@ const burrowSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
+    cart: [
+      {
     bookId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Book",
@@ -21,6 +23,13 @@ const burrowSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+        reviewId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Review",
+      default: null,
+    },
+      }
+    ],
     isReturned: {
       type: Boolean,
       default: false,
@@ -34,16 +43,12 @@ const burrowSchema = new mongoose.Schema(
       required: null,
     },
 
-    reviewUd: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Review",
-      default: null,
-    },
+
   },
   {
     timestamps: true,
   },
 );
 
-// export default mongoose.model("Burrow", burrowSchema); //USERS
-export default burrowSchema;
+export default mongoose.model("Burrow", burrowSchema); //USERS
+// export default burrowSchema;

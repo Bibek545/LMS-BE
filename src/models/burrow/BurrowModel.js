@@ -7,4 +7,9 @@ export const createNewBurrow = (burrowObj) => {
   return Burrow.create(burrowObj);
 };
 
+
+export const createBurrow = (burrowArg) => {
+  return burrowSchema.insertMany(burrowArg);
+};
+
 export default Burrow;
