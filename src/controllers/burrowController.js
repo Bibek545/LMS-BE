@@ -28,7 +28,7 @@ export const insertNewBurrow = async (req, res, next) => {
           req,
           res,
           message: "The burrow has been added successfully",
-          burrow
+          payload: burrow
         })
       : responseClient({
           req,
