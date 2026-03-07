@@ -8,4 +8,8 @@ export const createBurrow = (burrowArg) => {
   return burrowSchema.insertMany(burrowArg);
 };
 
+export const getBurrows = (filter) => {
+  return burrowSchema.find(filter);
+};
+
 export default Burrow;

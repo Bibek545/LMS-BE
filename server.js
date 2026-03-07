@@ -40,7 +40,7 @@ import burrowRoute from './src/routes/burrowRoute.js'
 app.use("/api/v1/auth", router);
 app.use("/api/v1/users", userRoute );
 app.use("/api/v1/books", booksRoute);
-app.use("/api/v1/burrows", burrowRoute)
+app.use("/api/v1/borrows", burrowRoute)
 
 // server status
 app.get("/", (req ,res)=> {

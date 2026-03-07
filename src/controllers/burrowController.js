@@ -1,5 +1,5 @@
 import { responseClient } from "../middleware/responseClient.js";
-import { createBurrow } from "../models/burrow/BurrowModel.js";
+import { createBurrow, getBurrows } from "../models/burrow/BurrowModel.js";
 
 const BOOK_DUE_DAYS = 15;
 export const insertNewBurrow = async (req, res, next) => {
@@ -14,7 +14,7 @@ export const insertNewBurrow = async (req, res, next) => {
       dueDate,
     };
     // console.log(obj);
-    req.body = req.body.map((book)=> {
+    req.body = req.body.map((book) => {
       return {
         ...book,
         userId: _id,
@@ -28,7 +28,7 @@ export const insertNewBurrow = async (req, res, next) => {
           req,
           res,
           message: "The burrow has been added successfully",
-          payload: burrow
+          payload: burrow,
         })
       : responseClient({
           req,
@@ -39,6 +39,29 @@ export const insertNewBurrow = async (req, res, next) => {
         });
   } catch (error) {
     console.error(" insertNewBurrow error:", error.message);
+    next(error);
+  }
+};
+
+export const getBurrowController = async (req, res, next) => {
+  try {
+    const { _id, role } = req.userInfo;
+
+    const isAdmin = role === "admin";
+
+    // console.log(req.body)
+    const burrow = isAdmin
+      ? await getBurrows()
+      : await getBurrows({ userId: _id });
+    
+      responseClient({
+          req,
+          res,
+          message: "Here is the list of burrow",
+          payload: burrow,
+        })
+  } catch (error) {
+    // console.error(" insertNewBurrow error:", error.message);
     next(error);
   }
 };

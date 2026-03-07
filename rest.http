@@ -106,9 +106,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJiZWtoY
 }
 
 ### burrow route
-POST {{rootUrl}}/api/v1/burrows
+POST {{rootUrl}}/api/v1/borrows
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJiZWtoYW1hbDI2QGdtYWlsLmNvbSIsImlhdCI6MTc3MDc4NjE0MiwiZXhwIjoxNzcwNzg3MDQyfQ.31c9pKXTbszLvshvTT_8knVrorvP2XkJEhFshsKmZwM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJiZWtoYW1hbDI2QGdtYWlsLmNvbSIsImlhdCI6MTc3MjU5NTE2NSwiZXhwIjoxNzcyNTk2MDY1fQ.fOvuMMx8AL3Om9NbOV74WXX1PdP8YszrFUm73H6rPHk
 
 [
   {
