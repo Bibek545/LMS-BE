@@ -8,12 +8,13 @@ export const insertNewBurrow = async (req, res, next) => {
 
     let today = new Date();
     const dueDate = today.setDate(today.getDate() + BOOK_DUE_DAYS);
+
     const obj = {
       cart: req.body,
       userId: _id,
       dueDate,
     };
-    // console.log(obj);
+    console.log(obj);
     req.body = req.body.map((book) => {
       return {
         ...book,
@@ -21,8 +22,23 @@ export const insertNewBurrow = async (req, res, next) => {
         dueDate,
       };
     });
-    // console.log(req.body)
+    //    const cart = req.body.map((book) => ({
+    //   bookId: book._id,
+    //   bookTitle: book.title,
+    //   thumbnail: book.thumbnail,
+    //   reviewId: null,
+    // }));
+
+    // const obj = {
+    //   userId: _id,
+    //   dueDate: today,
+    //   cart,
+    // };
+
+    // const burrow = await createBurrow(obj);
+
     const burrow = await createBurrow(req.body);
+
     burrow.length
       ? responseClient({
           req,
@@ -45,21 +61,22 @@ export const insertNewBurrow = async (req, res, next) => {
 
 export const getBurrowController = async (req, res, next) => {
   try {
-    const { _id, role } = req.userInfo;
+    const { _id } = req.userInfo;
+    const path = req.path;
 
-    const isAdmin = role === "admin";
+    const isAdmin = path === "/admin";
 
     // console.log(req.body)
     const burrow = isAdmin
       ? await getBurrows()
       : await getBurrows({ userId: _id });
-    
-      responseClient({
-          req,
-          res,
-          message: "Here is the list of burrow",
-          payload: burrow,
-        })
+
+    responseClient({
+      req,
+      res,
+      message: "Here is the list of burrow",
+      payload: burrow,
+    });
   } catch (error) {
     // console.error(" insertNewBurrow error:", error.message);
     next(error);

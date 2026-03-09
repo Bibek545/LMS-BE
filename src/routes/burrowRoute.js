@@ -12,7 +12,7 @@ router.post("/", userAuthMiddleware,newBurrowDataValidation,insertNewBurrow);
 //return request for admin only
 router.get("/admin", userAuthMiddleware, adminAuthMiddleware, getBurrowController)
 
-//return for the user
+//return for the user specific borrows list 
 router.get("/user", userAuthMiddleware ,getBurrowController)
 
 export default router;
