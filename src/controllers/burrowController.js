@@ -1,5 +1,7 @@
+import e from "cors";
 import { responseClient } from "../middleware/responseClient.js";
 import { createBurrow, getBurrows } from "../models/burrow/BurrowModel.js";
+import { updateBook } from "../models/books/BookModel.js";
 
 const BOOK_DUE_DAYS = 15;
 export const insertNewBurrow = async (req, res, next) => {
@@ -9,35 +11,46 @@ export const insertNewBurrow = async (req, res, next) => {
     let today = new Date();
     const dueDate = today.setDate(today.getDate() + BOOK_DUE_DAYS);
 
-    const obj = {
-      cart: req.body,
-      userId: _id,
-      dueDate,
-    };
-    console.log(obj);
-    req.body = req.body.map((book) => {
-      return {
-        ...book,
-        userId: _id,
-        dueDate,
-      };
-    });
-    //    const cart = req.body.map((book) => ({
-    //   bookId: book._id,
-    //   bookTitle: book.title,
-    //   thumbnail: book.thumbnail,
-    //   reviewId: null,
-    // }));
-
     // const obj = {
+    //   cart: req.body,
     //   userId: _id,
-    //   dueDate: today,
-    //   cart,
+    //   dueDate,
     // };
+    // console.log(obj);
+    // req.body = req.body.map((book) => {
+    //   return {
+    //     ...book,
+    //     userId: _id,
+    //     dueDate,
+    //   };
+    // });
+    // console.log("Incoming cart:", req.body);
+    // console.log("Saved cart:", cart);
+const cart = req.body.map((book) => ({
+  bookId: book.bookId,
+  bookTitle: book.bookTitle,
+  thumbnail: book.thumbnail,
+  bookSlug: book.bookSlug,
+  reviewId: null,
+}));
 
-    // const burrow = await createBurrow(obj);
+    const obj = {
+      userId: _id,
+      dueDate: today,
+      cart,
+    };
+    console.log("Incoming cart:", req.body);
+    console.log("Saved cart:", cart);
 
-    const burrow = await createBurrow(req.body);
+    const burrow = await createBurrow([obj]);
+
+    // const burrow = await createBurrow(req.body);
+   if(burrow.length) {
+    //update book table with expectedAvailable Date
+    burrow.map(async ({bookId})=> {
+      await updateBook({_id: bookId, expectedAvailable: dueDate})
+    })
+   }
 
     burrow.length
       ? responseClient({

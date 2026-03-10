@@ -19,6 +19,10 @@ const burrowSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+        bookSlug: {
+      type: String,
+      required: true,
+    },
     thumbnail: {
       type: String,
       required: true,
