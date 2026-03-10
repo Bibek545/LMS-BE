@@ -12,4 +12,8 @@ export const getBurrows = (filter) => {
   return burrowSchema.find(filter);
 };
 
+export const updateBurrow = (filter, obj) => {
+  return burrowSchema.findOneAndUpdate(filter, obj, { new: true });
+};
+
 export default Burrow;
