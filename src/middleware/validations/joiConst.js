@@ -68,3 +68,9 @@ export const _ID_REQ = _ID.required();
 
 export const EXPECTEDAVAILABLE = Joi.date().allow(null, "", );
 export const EXPECTEDAVAILABLE_REQ = EXPECTEDAVAILABLE.required();
+
+
+export const RATING = Joi.number()
+  .integer()
+  .min(1)
+  .max(5);

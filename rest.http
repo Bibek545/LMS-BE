@@ -142,8 +142,21 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJiZWtoY
 ###return book route
 PATCH {{rootUrl}}/api/v1/borrows
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJiZWtoYW1hbDI2QGdtYWlsLmNvbSIsImlhdCI6MTc3MzExNDUyMiwiZXhwIjoxNzczMTE1NDIyfQ.Nmhpawu1fsHFchozH-Bka0bX32SEkuNurEWe2r7yoGo
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAYi5jb20iLCJpYXQiOjE3NzMxMTUzNzYsImV4cCI6MTc3MzExNjI3Nn0.bEcWHwTgwuHh0pOJBw0jjwkgorFwaSxJ_-LF5yxujjo
 
 {
   "_id": "69af8c457e12b51741e0c35a"
+}
+
+###insert new review
+POST {{rootUrl}}/api/v1/reviews
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJiZWtoYW1hbDI2QGdtYWlsLmNvbSIsImlhdCI6MTc3NDIzOTUxMSwiZXhwIjoxNzc0MjQwNDExfQ.WHSsmRsfuE7XpIM5mkBTWLi8GD61XxBC7dsvmHMPLk4
+
+{
+  "bookId": "6927a1b66e9271023584c0a3",
+  "title":"The Silent Forest",
+  "reviewMessage":"awesome book",
+  "rating": 4,
+  "borrowId":"69af8c457e12b51741e0c35b"
 }
