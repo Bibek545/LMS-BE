@@ -32,7 +32,7 @@ app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 // API endpointsß
 import router from './src/routes/authRoute.js';
 import { errorHandle } from './src/middleware/errorHandler.js';
-// import { responseClient } from './src/middleware/responseClient.js'; //will use when i am using response client as a middleware
+import { responseClient } from './src/middleware/responseClient.js'; //will use when i am using response client as a middleware
 import userRoute from './src/routes/userRoute.js';
 import booksRoute from './src/routes/booksRoute.js'
 import burrowRoute from './src/routes/burrowRoute.js'
@@ -49,8 +49,8 @@ app.use("/api/v1/reviews", reviewRoute)
 // server status
 app.get("/", (req ,res)=> {
   const message = "Server is live";
-  res.json({req,res,message})
-  // responseClient({req,res,message})
+  // res.json({req,res,message})
+  responseClient({req,res,message})
 });
 
 app.use(errorHandle);
