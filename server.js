@@ -49,7 +49,8 @@ app.use("/api/v1/reviews", reviewRoute)
 // server status
 app.get("/", (req ,res)=> {
   const message = "Server is live";
-  responseClient({req,res,message})
+  res.json({req,res,message})
+  // responseClient({req,res,message})
 });
 
 app.use(errorHandle);
